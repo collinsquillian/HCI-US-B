@@ -2,11 +2,12 @@ package de.cmlab.ubicomp;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.io.*;
 
 import org.apache.xmlrpc.*;
 
 /**
- * Created by Georgios Mastoras on 17/11/2018.
+ * Created by Jonas Witt and Georgios Mastoras on 21/02/2019.
  *
  */
 public class JavaClient {
@@ -71,6 +72,19 @@ public class JavaClient {
 		Object result;
 		int el1, el2;
 		try {
+			
+			***********
+			***********
+			try {
+				createmap.main(null);
+				} catch (IOException e) {
+					System.err.println("JavaClient: " + e);
+				}
+			System.out.print("*** Calibration successful ***");
+			***********
+			***********
+			
+				  
 			System.out.println("Please enter the ip and port number of server...");
 			ip = getIp();
 			System.out.print("and for the port number ");
