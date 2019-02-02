@@ -1,5 +1,6 @@
-# UDPReceive
+# SmartMap
 
-Assignment V: Implementing a GPS visualisation for smart homes based on user maps.
+Assignment VI: Implementing a GPS visualisation for smart homes based on user maps.
 
-A UDP terminal is used to simulate GPS input from a mobile device.
+Class SmartMap collects GPS coordinates from .txt files provided by MATLAB's iphone connection library.
+It then calls Class CreateMap to provide users with an interface to specify their map.
