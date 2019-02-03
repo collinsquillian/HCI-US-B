@@ -1,10 +1,10 @@
 clear
-delete ./SensorData/LAT.txt
-delete ./SensorData/LON.txt
-delete ./SensorData/ALT.txt
-delete ./SensorData/SPEED.txt
+delete ./SmartMap/lib/SensorData/LAT.txt
+delete ./SmartMap/lib/SensorData/LON.txt
+delete ./SmartMap/lib/SensorData/ALT.txt
+delete ./SmartMap/lib/SensorData/SPEED.txt
 
-connector on connect;
+%connector on connect;
 mobile = mobiledev;
 
 m.PositionSensorEnabled = 1;
@@ -16,10 +16,10 @@ while 1 == 1
     %LAT = table(lat);
     %LON = table(lon);
     
-    dlmwrite('./SensorData/LAT.txt', lat, '-append');
-    dlmwrite('./SensorData/LON.txt', lon, '-append');
-    dlmwrite('./SensorData/ALT.txt', alt, '-append');
-    dlmwrite('./SensorData/SPEED.txt', speed, '-append');
+    dlmwrite('./SmartMap/lib/SensorData/LAT.txt', lat, '-append');
+    dlmwrite('./SmartMap/lib/SensorData/LON.txt', lon, '-append');
+    dlmwrite('./SmartMap/lib/SensorData/ALT.txt', alt, '-append');
+    dlmwrite('./SmartMap/lib/SensorData/SPEED.txt', speed, '-append');
     discardlogs(mobile);
     pause(1);
 end

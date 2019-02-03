@@ -2,8 +2,8 @@ package de.cmlab.ubicomp;
 
 import java.awt.Desktop;
 import java.io.*;
-import java.util.Enumeration;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.net.*;
 import java.nio.file.Files;
 
@@ -42,17 +42,20 @@ public class SmartMap {
 	 */
 	public static void deleteClosingSvgTag() {
 		try {
-			File file = new File(WORKFILENAME);
+			File file = new File(FILENAME);
 			File temp = File.createTempFile("temp", ".svg", file.getParentFile());
 			String charset = "UTF-8";
 			String delete = "</svg>";
 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
 			PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), charset));
-
-			for (String line; (line = reader.readLine()) != null;) {
+			
+			String line = reader.readLine();
+			while (line != null) {
 				line = line.replace(delete, "");
 				writer.println(line);
+				System.out.print(line + "\n");
+				line = reader.readLine();
 			}
 			reader.close();
 			writer.close();
@@ -74,7 +77,7 @@ public class SmartMap {
 
 		/* Append new <svg> objects */
 		try {
-			fw = new FileWriter(WORKFILENAME, true);
+			fw = new FileWriter(FILENAME, true);
 			bw = new BufferedWriter(fw);
 
 			String rec_start = "<circle cx=\"" + x + "\" cy=\"" + y
@@ -87,7 +90,7 @@ public class SmartMap {
 				if (Desktop.isDesktopSupported()) {
 					desktop = Desktop.getDesktop();
 				}
-				desktop.open(new File(WORKFILENAME));
+				desktop.open(new File(FILENAME));
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
@@ -146,8 +149,8 @@ public class SmartMap {
 				}
 				counter += 1;
 			}
-			reader.close();
-			writer.close();
+			//reader.close();
+			//writer.close();
 			file.delete();
 			temp.renameTo(file);
 		} catch (IOException e) {
@@ -162,10 +165,11 @@ public class SmartMap {
 		
 		for (int k=0;k<=3;k++){
 			System.out.print(currentGPS[k] + " | ");
+			System.out.print("\n");
 		}
 		
 		CreateMap createmap = new CreateMap();
-		String[] arguments = new String[] {"create"};
-		createmap.main(arguments);
+		String[] arguments_cr = new String[] {"create"};
+		int[] usermap_dim = createmap.main(arguments_cr);
 	}
 }
